@@ -8,33 +8,33 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Store data-->
         <scene sceneID="PO0-8v-74h">
             <objects>
-                <viewController id="doK-bo-IC9" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoreDataViewController" id="doK-bo-IC9" customClass="StoreDataViewController" customModule="Scanner_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6SB-2H-vGp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="rI2-C2-hQv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="2Vv-dq-ROP"/>
+                    <tabBarItem key="tabBarItem" title="Store data" id="2Vv-dq-ROP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gFW-43-Tds" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1659" y="255"/>
         </scene>
-        <!--Item 1-->
+        <!--Profile-->
         <scene sceneID="2zu-J7-VSl">
             <objects>
-                <viewController id="FFj-se-imI" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="FFj-se-imI" customClass="ProfileViewController" customModule="Scanner_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Sey-vn-Yyy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="RXu-h2-Nvw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="fkv-KO-5EM"/>
+                    <tabBarItem key="tabBarItem" title="Profile" id="fkv-KO-5EM"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIy-oy-Z2A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -497,10 +497,10 @@
             </objects>
             <point key="canvasLocation" x="-842.02898550724649" y="-619.41964285714278"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main View Controller-->
         <scene sceneID="W0C-ml-hls">
             <objects>
-                <tabBarController id="9vY-bf-zRK" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainViewController" id="9vY-bf-zRK" customClass="MainViewController" customModule="Scanner_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MD4-dc-aUY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

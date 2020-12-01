@@ -27,4 +27,8 @@ extension UIStoryboard {
     class func viewController() -> ViewController? {
         return mainStoryboard().instantiateViewController(withIdentifier: "ViewController") as? ViewController
     }
+    
+    class func mainViewController() -> MainViewController? {
+        return mainStoryboard().instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
+    }
 }

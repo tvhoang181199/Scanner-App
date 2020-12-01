@@ -20,8 +20,8 @@ class Account : Mappable {
     }
     
     func mapping(map: Map){
-        firstName           <- map["firstName"]
-        lastName            <- map["lastName"]
+        firstName           <- map["first_name"]
+        lastName            <- map["last_name"]
         email               <- map["email"]
     }
     

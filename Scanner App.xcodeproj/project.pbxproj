@@ -21,6 +21,11 @@
 		F539294725763D720020CB9D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539294625763D720020CB9D /* Extension.swift */; };
 		F539294F257649CC0020CB9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539294E257649CC0020CB9D /* ViewController.swift */; };
 		F539295425764EFB0020CB9D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539295325764EFB0020CB9D /* SignUpViewController.swift */; };
+		F539295C2576A17F0020CB9D /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539295B2576A17F0020CB9D /* Toast.swift */; };
+		F53929612576A25B0020CB9D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53929602576A25B0020CB9D /* Utils.swift */; };
+		F53929662576B4AA0020CB9D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53929652576B4AA0020CB9D /* MainViewController.swift */; };
+		F53929882576BF770020CB9D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53929872576BF770020CB9D /* ProfileViewController.swift */; };
+		F539298D2576BFC80020CB9D /* StoreDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539298C2576BFC80020CB9D /* StoreDataViewController.swift */; };
 		F5DD4AE52574077200787637 /* NavigationControllerCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4AE42574077200787637 /* NavigationControllerCustom.swift */; };
 		F5DD4AEA257407B300787637 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4AE9257407B300787637 /* ColorUtils.swift */; };
 		F5FA95F225726B9100C9427E /* StoryboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA95F125726B9100C9427E /* StoryboardManager.swift */; };
@@ -77,6 +82,11 @@
 		F539294625763D720020CB9D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		F539294E257649CC0020CB9D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F539295325764EFB0020CB9D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F539295B2576A17F0020CB9D /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		F53929602576A25B0020CB9D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F53929652576B4AA0020CB9D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		F53929872576BF770020CB9D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F539298C2576BFC80020CB9D /* StoreDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDataViewController.swift; sourceTree = "<group>"; };
 		F5DD4AE42574077200787637 /* NavigationControllerCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerCustom.swift; sourceTree = "<group>"; };
 		F5DD4AE9257407B300787637 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		F5FA95F125726B9100C9427E /* StoryboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardManager.swift; sourceTree = "<group>"; };
@@ -219,6 +229,9 @@
 				F5FA96512572C2C100C9427E /* LoginViewController.swift */,
 				F539295325764EFB0020CB9D /* SignUpViewController.swift */,
 				F5DD4AE42574077200787637 /* NavigationControllerCustom.swift */,
+				F53929652576B4AA0020CB9D /* MainViewController.swift */,
+				F53929872576BF770020CB9D /* ProfileViewController.swift */,
+				F539298C2576BFC80020CB9D /* StoreDataViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -232,6 +245,8 @@
 				F5FA96402572B87400C9427E /* header.h */,
 				F5DD4AE9257407B300787637 /* ColorUtils.swift */,
 				F539294625763D720020CB9D /* Extension.swift */,
+				F539295B2576A17F0020CB9D /* Toast.swift */,
+				F53929602576A25B0020CB9D /* Utils.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -485,6 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5DD4AEA257407B300787637 /* ColorUtils.swift in Sources */,
+				F539295C2576A17F0020CB9D /* Toast.swift in Sources */,
 				F5DD4AE52574077200787637 /* NavigationControllerCustom.swift in Sources */,
 				F5FA960825726E9C00C9427E /* RootViewController.swift in Sources */,
 				F5FA961325726F4E00C9427E /* ManageCacheObject.swift in Sources */,
@@ -492,11 +508,15 @@
 				17B1C0C02567D3D200B3E6A4 /* AppDelegate.swift in Sources */,
 				F5FA960D25726F0F00C9427E /* SplashViewController.swift in Sources */,
 				F5FA961D2572B42D00C9427E /* Account.swift in Sources */,
+				F53929882576BF770020CB9D /* ProfileViewController.swift in Sources */,
+				F53929612576A25B0020CB9D /* Utils.swift in Sources */,
 				F5FA964A2572B91000C9427E /* EnumStatus.swift in Sources */,
 				F539295425764EFB0020CB9D /* SignUpViewController.swift in Sources */,
 				F5FA95F225726B9100C9427E /* StoryboardManager.swift in Sources */,
+				F539298D2576BFC80020CB9D /* StoreDataViewController.swift in Sources */,
 				F539294725763D720020CB9D /* Extension.swift in Sources */,
 				17B1C0C22567D3D200B3E6A4 /* SceneDelegate.swift in Sources */,
+				F53929662576B4AA0020CB9D /* MainViewController.swift in Sources */,
 				F5FA96452572B90600C9427E /* Configs.swift in Sources */,
 				F5FA96522572C2C100C9427E /* LoginViewController.swift in Sources */,
 			);

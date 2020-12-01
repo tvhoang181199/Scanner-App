@@ -18,9 +18,9 @@ class ViewController:  UIViewController, NavigationControllerCustomDelegate {
        
         
         if(ManageCacheObject.isLogin()){
-//            var mainViewController: MainViewController?
-//            mainViewController = UIStoryboard.mainViewController()
-//            self.navigationController!.pushViewController(mainViewController!, animated: false)
+            let mainViewController:MainViewController?
+            mainViewController = UIStoryboard.mainViewController()
+            self.navigationController?.pushViewController(mainViewController!, animated: false)
             
         }else{
             let loginViewController: LoginViewController?

@@ -10,10 +10,11 @@ target 'Scanner App' do
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Database'
   pod 'Firebase/Storage'
   
   pod 'JGProgressHUD'
-
+  pod 'ObjectMapper'
   
   target 'Scanner AppTests' do
     inherit! :search_paths
