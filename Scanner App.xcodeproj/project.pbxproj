@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		17B1C0C02567D3D200B3E6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */; };
 		17B1C0C22567D3D200B3E6A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */; };
-		17B1C0C42567D3D200B3E6A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0C32567D3D200B3E6A4 /* ViewController.swift */; };
 		17B1C0C72567D3D200B3E6A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17B1C0C52567D3D200B3E6A4 /* Main.storyboard */; };
 		17B1C0C92567D3DE00B3E6A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17B1C0C82567D3DE00B3E6A4 /* Assets.xcassets */; };
 		17B1C0CC2567D3DE00B3E6A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17B1C0CA2567D3DE00B3E6A4 /* LaunchScreen.storyboard */; };
@@ -19,6 +18,20 @@
 		2980A64FC7737E785141DD94 /* Pods_Scanner_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F45F0EE93E64D999DAB11A /* Pods_Scanner_AppTests.framework */; };
 		68E9A17DED01A803D9EBCA3F /* Pods_Scanner_App_Scanner_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B2F2FB870C8FF37B30ABC6 /* Pods_Scanner_App_Scanner_AppUITests.framework */; };
 		92FE8BCE125CEB44082A260A /* Pods_Scanner_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B52059BE39EDEF7474E41 /* Pods_Scanner_App.framework */; };
+		F539294725763D720020CB9D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539294625763D720020CB9D /* Extension.swift */; };
+		F539294F257649CC0020CB9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539294E257649CC0020CB9D /* ViewController.swift */; };
+		F539295425764EFB0020CB9D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539295325764EFB0020CB9D /* SignUpViewController.swift */; };
+		F5DD4AE52574077200787637 /* NavigationControllerCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4AE42574077200787637 /* NavigationControllerCustom.swift */; };
+		F5DD4AEA257407B300787637 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DD4AE9257407B300787637 /* ColorUtils.swift */; };
+		F5FA95F225726B9100C9427E /* StoryboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA95F125726B9100C9427E /* StoryboardManager.swift */; };
+		F5FA960225726BF200C9427E /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5FA960125726BF200C9427E /* SplashViewController.xib */; };
+		F5FA960825726E9C00C9427E /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA960725726E9C00C9427E /* RootViewController.swift */; };
+		F5FA960D25726F0F00C9427E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA960C25726F0F00C9427E /* SplashViewController.swift */; };
+		F5FA961325726F4E00C9427E /* ManageCacheObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA961225726F4E00C9427E /* ManageCacheObject.swift */; };
+		F5FA961D2572B42D00C9427E /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA961C2572B42D00C9427E /* Account.swift */; };
+		F5FA96452572B90600C9427E /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA96442572B90600C9427E /* Configs.swift */; };
+		F5FA964A2572B91000C9427E /* EnumStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA96492572B91000C9427E /* EnumStatus.swift */; };
+		F5FA96522572C2C100C9427E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FA96512572C2C100C9427E /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +55,6 @@
 		17B1C0BC2567D3D200B3E6A4 /* Scanner App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scanner App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		17B1C0C32567D3D200B3E6A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		17B1C0C62567D3D200B3E6A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		17B1C0C82567D3DE00B3E6A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17B1C0CB2567D3DE00B3E6A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -62,6 +74,21 @@
 		7DDBB52F753C9962D420056B /* Pods-Scanner AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scanner AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Scanner AppTests/Pods-Scanner AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B288F097E6C0D4D26417BCEF /* Pods-Scanner App-Scanner AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scanner App-Scanner AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Scanner App-Scanner AppUITests/Pods-Scanner App-Scanner AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D1B2F2FB870C8FF37B30ABC6 /* Pods_Scanner_App_Scanner_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scanner_App_Scanner_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F539294625763D720020CB9D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		F539294E257649CC0020CB9D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F539295325764EFB0020CB9D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F5DD4AE42574077200787637 /* NavigationControllerCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerCustom.swift; sourceTree = "<group>"; };
+		F5DD4AE9257407B300787637 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
+		F5FA95F125726B9100C9427E /* StoryboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardManager.swift; sourceTree = "<group>"; };
+		F5FA960125726BF200C9427E /* SplashViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
+		F5FA960725726E9C00C9427E /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		F5FA960C25726F0F00C9427E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		F5FA961225726F4E00C9427E /* ManageCacheObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCacheObject.swift; sourceTree = "<group>"; };
+		F5FA961C2572B42D00C9427E /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F5FA96402572B87400C9427E /* header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = header.h; sourceTree = "<group>"; };
+		F5FA96442572B90600C9427E /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
+		F5FA96492572B91000C9427E /* EnumStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumStatus.swift; sourceTree = "<group>"; };
+		F5FA96512572C2C100C9427E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F8563BF2DB112685C9CC31F3 /* Pods-Scanner App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scanner App.release.xcconfig"; path = "Target Support Files/Pods-Scanner App/Pods-Scanner App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,12 +145,13 @@
 		17B1C0BE2567D3D200B3E6A4 /* Scanner App */ = {
 			isa = PBXGroup;
 			children = (
+				F5FA961B2572B41700C9427E /* Models */,
+				F5FA961125726F3000C9427E /* Helpers */,
+				F5FA960625726C3800C9427E /* Controllers */,
+				F5FA95F025726B7F00C9427E /* Storyboards */,
 				17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */,
 				17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */,
-				17B1C0C32567D3D200B3E6A4 /* ViewController.swift */,
-				17B1C0C52567D3D200B3E6A4 /* Main.storyboard */,
 				17B1C0C82567D3DE00B3E6A4 /* Assets.xcassets */,
-				17B1C0CA2567D3DE00B3E6A4 /* LaunchScreen.storyboard */,
 				17B1C0CD2567D3DE00B3E6A4 /* Info.plist */,
 				17D6BF12256EAFA300B108F1 /* GoogleService-Info.plist */,
 			);
@@ -158,7 +186,6 @@
 				7DDBB52F753C9962D420056B /* Pods-Scanner AppTests.debug.xcconfig */,
 				6EFCA9E3FD33740555CA8FDF /* Pods-Scanner AppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -170,6 +197,51 @@
 				44F45F0EE93E64D999DAB11A /* Pods_Scanner_AppTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F5FA95F025726B7F00C9427E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				F5FA95F125726B9100C9427E /* StoryboardManager.swift */,
+				17B1C0C52567D3D200B3E6A4 /* Main.storyboard */,
+				F5FA960125726BF200C9427E /* SplashViewController.xib */,
+				17B1C0CA2567D3DE00B3E6A4 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		F5FA960625726C3800C9427E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F539294E257649CC0020CB9D /* ViewController.swift */,
+				F5FA960725726E9C00C9427E /* RootViewController.swift */,
+				F5FA960C25726F0F00C9427E /* SplashViewController.swift */,
+				F5FA96512572C2C100C9427E /* LoginViewController.swift */,
+				F539295325764EFB0020CB9D /* SignUpViewController.swift */,
+				F5DD4AE42574077200787637 /* NavigationControllerCustom.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F5FA961125726F3000C9427E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F5FA961225726F4E00C9427E /* ManageCacheObject.swift */,
+				F5FA96442572B90600C9427E /* Configs.swift */,
+				F5FA96492572B91000C9427E /* EnumStatus.swift */,
+				F5FA96402572B87400C9427E /* header.h */,
+				F5DD4AE9257407B300787637 /* ColorUtils.swift */,
+				F539294625763D720020CB9D /* Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F5FA961B2572B41700C9427E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F5FA961C2572B42D00C9427E /* Account.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +355,7 @@
 				17B1C0CC2567D3DE00B3E6A4 /* LaunchScreen.storyboard in Resources */,
 				17D6BF13256EAFA300B108F1 /* GoogleService-Info.plist in Resources */,
 				17B1C0C92567D3DE00B3E6A4 /* Assets.xcassets in Resources */,
+				F5FA960225726BF200C9427E /* SplashViewController.xib in Resources */,
 				17B1C0C72567D3D200B3E6A4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,9 +484,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17B1C0C42567D3D200B3E6A4 /* ViewController.swift in Sources */,
+				F5DD4AEA257407B300787637 /* ColorUtils.swift in Sources */,
+				F5DD4AE52574077200787637 /* NavigationControllerCustom.swift in Sources */,
+				F5FA960825726E9C00C9427E /* RootViewController.swift in Sources */,
+				F5FA961325726F4E00C9427E /* ManageCacheObject.swift in Sources */,
+				F539294F257649CC0020CB9D /* ViewController.swift in Sources */,
 				17B1C0C02567D3D200B3E6A4 /* AppDelegate.swift in Sources */,
+				F5FA960D25726F0F00C9427E /* SplashViewController.swift in Sources */,
+				F5FA961D2572B42D00C9427E /* Account.swift in Sources */,
+				F5FA964A2572B91000C9427E /* EnumStatus.swift in Sources */,
+				F539295425764EFB0020CB9D /* SignUpViewController.swift in Sources */,
+				F5FA95F225726B9100C9427E /* StoryboardManager.swift in Sources */,
+				F539294725763D720020CB9D /* Extension.swift in Sources */,
 				17B1C0C22567D3D200B3E6A4 /* SceneDelegate.swift in Sources */,
+				F5FA96452572B90600C9427E /* Configs.swift in Sources */,
+				F5FA96522572C2C100C9427E /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,7 +676,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523SRU7Q76;
+				DEVELOPMENT_TEAM = 6964G87UZ5;
 				INFOPLIST_FILE = "Scanner App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,6 +684,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "vuhoang.trinh.Scanner-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/giahuy/Documents/Project/iOSProject/Scanner/Scanner App/Helpers/header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -611,7 +697,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523SRU7Q76;
+				DEVELOPMENT_TEAM = 6964G87UZ5;
 				INFOPLIST_FILE = "Scanner App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -619,6 +705,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "vuhoang.trinh.Scanner-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/giahuy/Documents/Project/iOSProject/Scanner/Scanner App/Helpers/header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

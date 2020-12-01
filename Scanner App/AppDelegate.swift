@@ -11,10 +11,18 @@ import Firebase
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        let splashScreen = SplashViewController(nibName: "SplashViewController", bundle: nil)
+      let frame = UIScreen.main.bounds
+      window = UIWindow(frame: frame)
+      window!.rootViewController = splashScreen
+      window!.makeKeyAndVisible()
+        
         FirebaseApp.configure()
         return true
     }
