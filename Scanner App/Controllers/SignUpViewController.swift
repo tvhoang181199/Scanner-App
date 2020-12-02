@@ -31,7 +31,8 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
         let navigationControllerCustom : NavigationControllerCustom = self.navigationController as! NavigationControllerCustom
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:false, hideFilterButton:true, title: "")
         navigationControllerCustom.navigationBar.barTintColor = ColorUtils.toolbar()
-        self.navigationItem.hidesBackButton = true
+        navigationControllerCustom.navigationBar.isHidden = false
+//        self.navigationItem.hidesBackButton = true
     }
     
     func backTap() {

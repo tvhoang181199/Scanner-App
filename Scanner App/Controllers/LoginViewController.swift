@@ -32,7 +32,7 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
         //custom navigation bar
         let navigationControllerCustom : NavigationControllerCustom = self.navigationController as! NavigationControllerCustom
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:true, hideFilterButton:true, title: "")
-        navigationControllerCustom.navigationBar.barTintColor = ColorUtils.toolbar()
+        navigationControllerCustom.navigationBar.isHidden = true
         self.navigationItem.hidesBackButton = false
         
         

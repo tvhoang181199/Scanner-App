@@ -17,12 +17,13 @@ class ViewController:  UIViewController, NavigationControllerCustomDelegate {
         super.viewDidLoad()
        
         
-        if(ManageCacheObject.isLogin()){
+        if (ManageCacheObject.isLogin()) {
             let mainViewController:MainViewController?
             mainViewController = UIStoryboard.mainViewController()
             self.navigationController?.pushViewController(mainViewController!, animated: false)
             
-        }else{
+        }
+        else {
             let loginViewController: LoginViewController?
             loginViewController = UIStoryboard.loginViewController()
             self.navigationController!.pushViewController(loginViewController!, animated: false)
