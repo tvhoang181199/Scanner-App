@@ -13,6 +13,7 @@ target 'Scanner App' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   
+  pod 'SCLAlertView', '~> 0.8'
   pod 'JGProgressHUD'
   pod 'ObjectMapper'
   
