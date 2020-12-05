@@ -64,6 +64,8 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>This app uses the Camera to allow you to scan documents</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app uses your Photos to allow you saved documents</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 </dict>

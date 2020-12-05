@@ -27,6 +27,8 @@ class DocumentCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var splitline: UIView!
     
+    var images: [UIImage?] = []
+    
     func setDocument(_ document:DocumentData) {
         documentImageView.image = document.images[0]
         titleLabel.text = document.title!
@@ -37,7 +39,58 @@ class DocumentCell: UITableViewCell {
     @IBAction func shareButtonTapped(_ sender: Any) {
     }
     
+    func incrementHUD(_ hud: JGProgressHUD, progress previousProgress: Int) {
+            let progress = previousProgress + 1
+            hud.progress = Float(progress)/100.0
+            hud.detailTextLabel.text = "\(progress)% Complete"
+            
+            if progress == 100 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    UIView.animate(withDuration: 0.1, animations: {
+                        hud.textLabel.text = "Success"
+                        hud.detailTextLabel.text = nil
+                        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                    })
+                    hud.dismiss(afterDelay: 1.0)
+                }
+            }
+            else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(20)) {
+                    self.incrementHUD(hud, progress: progress)
+                }
+            }
+        }
+    
     @IBAction func saveImageTapped(_ sender: Any) {
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false,
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("Yes") {
+            for i in 0..<self.images.count {
+                UIImageWriteToSavedPhotosAlbum(self.images[i]!, self, nil, nil)
+            }
+            let hud = JGProgressHUD(style:  .dark)
+            hud.vibrancyEnabled = true
+            if arc4random_uniform(2) == 0 {
+                hud.indicatorView = JGProgressHUDPieIndicatorView()
+            }
+            else {
+                hud.indicatorView = JGProgressHUDRingIndicatorView()
+            }
+            hud.detailTextLabel.text = "0% Complete"
+            hud.textLabel.text = "Saving"
+            hud.show(in: self.superview!.superview!)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+                self.incrementHUD(hud, progress: 0)
+            }
+        }
+        alertView.addButton("No") {
+        }
+        
+        alertView.showInfo("Save Document", subTitle: "Do you want to save all pages of your documents as photos?")
     }
 }
 
@@ -87,6 +140,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "documentCell", for: indexPath) as! DocumentCell
         cell.setDocument(Array(documentsList.values)[indexPath.row])
+        cell.images = Array(documentsList.values)[indexPath.row].images
         if (indexPath.row == documentsList.count-1) {
             cell.splitline.isHidden = true
         }
