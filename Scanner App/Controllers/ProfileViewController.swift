@@ -24,8 +24,7 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("asdadas - " + getCurrentTime())
-        print((currentUser?.email)!)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,47 +44,76 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
     
     func getCurrentTime() -> String{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         dateFormatter.timeZone = TimeZone.current
         return dateFormatter.string(from: Date())
     }
     
     func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
-        let dispatchGroup = DispatchGroup()
-
+        var documentName:String? = nil
+        var documentData:[String:Any] = [:]
         let currentTime = getCurrentTime()
+        documentData.updateValue("\(currentTime)", forKey: "time")
+        documentData.updateValue(scan.pageCount, forKey: "numOfPages")
         
-        let hud = JGProgressHUD(style:  .dark)
-        hud.textLabel.text = "Uploading..."
-        hud.show(in: self.view)
-        
-        for pageIndex in 0..<scan.pageCount {
-            dispatchGroup.enter()
-            self.db.collection("documents").document((currentUser?.email)!).updateData(["\(currentTime) - \(pageIndex)":"gs://usscanner.appspot.com/\((currentUser?.email)!)/\(currentTime) - \(pageIndex)"]) { (error) in
-                if error != nil {
-                    // Show error alert
-                    SCLAlertView().showError("Error", subTitle: error!.localizedDescription)
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false,
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        let name = alertView.addTextField("")
+        alertView.addButton("Save") {
+            if (name.text == "") {
+                documentName = "\(currentTime)"
+                for pageIndex in 0..<scan.pageCount {
+                    documentData.updateValue("gs://usscanner.appspot.com/documents/\((self.currentUser?.email)!)/\(currentTime)-\(pageIndex)", forKey: "\(currentTime)-\(pageIndex)")
                 }
-                else {
-                    // Upload photo
-                    let storageRef = self.storage.reference().child("documents/\((self.currentUser?.email)!)/\(currentTime) - \(pageIndex)")
-                    
-                    let imageData = scan.imageOfPage(at: pageIndex).jpegData(compressionQuality: 1)
-                    
-                    let metaData = StorageMetadata()
-                    metaData.contentType = "image/jpeg"
-                    
-                    storageRef.putData(imageData!, metadata: metaData) { (metaData, error) in
-                        dispatchGroup.leave()
+            }
+            else {
+                documentName = "\(name.text!)"
+                for pageIndex in 0..<scan.pageCount {
+                    documentData.updateValue("gs://usscanner.appspot.com/documents/\((self.currentUser?.email)!)/\(name.text!)-\(pageIndex)", forKey: "\(name.text!)-\(pageIndex)")
+                }
+            }
+            
+            let dispatchGroup = DispatchGroup()
+
+            let hud = JGProgressHUD(style:  .dark)
+            hud.textLabel.text = "Uploading..."
+            hud.show(in: self.view)
+            
+            for pageIndex in 0..<scan.pageCount {
+                dispatchGroup.enter()
+                self.db.collection("documents").document((self.currentUser?.email)!).updateData(["\(documentName!)":documentData]) { (error) in
+                    if error != nil {
+                        // Show error alert
+                        SCLAlertView().showError("Error", subTitle: error!.localizedDescription)
+                    }
+                    else {
+                        // Upload photo
+                        let storageRef = self.storage.reference().child("documents/\((self.currentUser?.email)!)/\(documentName!)-\(pageIndex)")
+                        
+                        let imageData = scan.imageOfPage(at: pageIndex).jpegData(compressionQuality: 0.8)
+                        
+                        let metaData = StorageMetadata()
+                        metaData.contentType = "image/jpeg"
+                        
+                        storageRef.putData(imageData!, metadata: metaData) { (metaData, error) in
+                            dispatchGroup.leave()
+                        }
                     }
                 }
             }
-        }
 
-        dispatchGroup.notify(queue: .main) {
-            hud.dismiss()
-            SCLAlertView().showSuccess("Success", subTitle: "All your new documents have been saved!")
+            dispatchGroup.notify(queue: .main) {
+                hud.dismiss()
+                SCLAlertView().showSuccess("Success", subTitle: "All your new documents have been saved!")
+            }
         }
+        alertView.addButton("Cancel") {
+            print("Cancel")
+        }
+        alertView.showInfo("Save your document?", subTitle: "Enter your document's name:")
 
         controller.dismiss(animated: true, completion: nil)
     }

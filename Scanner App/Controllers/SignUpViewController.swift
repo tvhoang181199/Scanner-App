@@ -80,7 +80,7 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
             }
             else {
                 let db = Firestore.firestore()
-                
+                db.collection("documents").document(self.txt_email.text!.trimmingCharacters(in: .whitespacesAndNewlines)).setData([:]) {(error) in}
                 db.collection("users").addDocument(data: [
                     "first_name":self.txt_firstName.text!.trimmingCharacters(in: .whitespacesAndNewlines),
                     "last_name":self.txt_lastName.text!.trimmingCharacters(in: .whitespacesAndNewlines),
