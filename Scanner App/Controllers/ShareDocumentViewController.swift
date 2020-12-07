@@ -48,7 +48,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         var frame = CGRect(x:0, y:0, width: 0, height: 0)
         frame.size = scrollView.bounds.size
         
-        title = documentData.title
+        titleLabel.text = documentData.title
         pageControl.numberOfPages = documentData.images.count
         scrollView.isPagingEnabled = true
         scrollView.alwaysBounceVertical = false
