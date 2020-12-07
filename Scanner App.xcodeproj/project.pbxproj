@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1781C947257C32230058AE55 /* ShareDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1781C946257C32230058AE55 /* ShareDocumentViewController.swift */; };
 		17B1C0C02567D3D200B3E6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */; };
 		17B1C0C22567D3D200B3E6A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */; };
 		17B1C0C72567D3D200B3E6A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17B1C0C52567D3D200B3E6A4 /* Main.storyboard */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1781C946257C32230058AE55 /* ShareDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDocumentViewController.swift; sourceTree = "<group>"; };
 		17B1C0BC2567D3D200B3E6A4 /* Scanner App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scanner App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				F53929652576B4AA0020CB9D /* MainViewController.swift */,
 				F53929872576BF770020CB9D /* ProfileViewController.swift */,
 				F539298C2576BFC80020CB9D /* StoreDataViewController.swift */,
+				1781C946257C32230058AE55 /* ShareDocumentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				F5DD4AE52574077200787637 /* NavigationControllerCustom.swift in Sources */,
 				F5FA960825726E9C00C9427E /* RootViewController.swift in Sources */,
 				F5FA961325726F4E00C9427E /* ManageCacheObject.swift in Sources */,
+				1781C947257C32230058AE55 /* ShareDocumentViewController.swift in Sources */,
 				F539294F257649CC0020CB9D /* ViewController.swift in Sources */,
 				17B1C0C02567D3D200B3E6A4 /* AppDelegate.swift in Sources */,
 				F5FA960D25726F0F00C9427E /* SplashViewController.swift in Sources */,

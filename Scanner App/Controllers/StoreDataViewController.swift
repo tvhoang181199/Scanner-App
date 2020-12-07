@@ -80,8 +80,8 @@ class DocumentCell: UITableViewCell {
                 hud.indicatorView = JGProgressHUDRingIndicatorView()
             }
             hud.detailTextLabel.text = "0% Complete"
-            hud.textLabel.text = "Saving"
-            hud.show(in: self.superview!.superview!)
+            hud.textLabel.text = "Saving..."
+            hud.show(in: self.superview!.superview!.superview!)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
                 self.incrementHUD(hud, progress: 0)
@@ -98,11 +98,15 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     
     @IBOutlet weak var documentsTableView: UITableView!
     
-    var documentsList: [String:DocumentData] = [:]
+    var documentsData: [String:DocumentData] = [:]
+    var documentsListSorted: [DocumentData] = []
+    var isNeedUpdate: Bool = false
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
     let currentUser = Auth.auth().currentUser
+    
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +114,12 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         documentsTableView.delegate = self
         documentsTableView.dataSource = self
         
-//        fetchData()
+        refreshControl.tintColor = UIColor.lightGray
+        refreshControl.addTarget(self, action: #selector(refetchData), for: .valueChanged)
+        documentsTableView.addSubview(refreshControl)
+        
+        // fetchData for first time
+        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,8 +129,53 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:true, hideFilterButton:true, title: "DATA")
         navigationControllerCustom.navigationBar.isHidden = true
         
-        // Fetch data
-        fetchData()
+        // Fetch data if there is a new document uploaded
+        if isNeedUpdate {
+            fetchData()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // When disapear, all data is fetched so set isNeedUpdate to false
+        isNeedUpdate = false
+    }
+    
+    @objc private func refetchData() {
+        documentsData.removeAll()
+        documentsListSorted.removeAll()
+        db.collection("documents").document((currentUser?.email)!).getDocument { (snapshot, error) in
+            if let error = error {
+                SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+            }
+            else {
+                let dispatchGroup = DispatchGroup()
+                for key in (snapshot?.data() as Dictionary).keys {
+                    self.documentsData.updateValue(DocumentData(), forKey: key)
+                    self.documentsData[key]?.title = "\(key)"
+                    self.documentsData[key]?.time = ((snapshot?.data()![key] as! Dictionary<String, Any>)["time"]! as! String)
+                    self.documentsData[key]?.numOfPages = ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int)
+                    for i in 0..<(self.documentsData[key]?.numOfPages!)! {
+                        dispatchGroup.enter()
+                        let imageRef = Storage.storage().reference(forURL: ((snapshot?.data()![key] as! Dictionary<String, Any>)["\(key)-\(i)"]! as! String))
+                        imageRef.getData(maxSize: 1*4096*4096) { (data, error) in
+                            if let error = error {
+                                SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+                            }
+                            else {
+                                self.documentsData[key]?.images.append(UIImage(data: data!))
+                                dispatchGroup.leave()
+                            }
+                        }
+                    }
+                }
+                dispatchGroup.notify(queue: .main) {
+                    self.documentsListSorted = Array(self.documentsData.values).sorted { ($0 as DocumentData).title!.lowercased() < ($1 as DocumentData).title!.lowercased() }
+                    self.documentsTableView.reloadData()
+                    self.refreshControl.endRefreshing()
+                }
+            }
+        }
     }
     
     func presentData() {
@@ -134,24 +188,73 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return documentsList.count
+        return (!documentsListSorted.isEmpty) ? documentsListSorted.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "documentCell", for: indexPath) as! DocumentCell
-        cell.setDocument(Array(documentsList.values)[indexPath.row])
-        cell.images = Array(documentsList.values)[indexPath.row].images
-        if (indexPath.row == documentsList.count-1) {
-            cell.splitline.isHidden = true
-        }
-        else {
-            cell.splitline.isHidden = false
+        if (!documentsData.isEmpty && !documentsListSorted.isEmpty) {
+            cell.setDocument(documentsListSorted[indexPath.row])
+            cell.images = documentsListSorted[indexPath.row].images
+            if (indexPath.row == documentsData.count-1) {
+                cell.splitline.isHidden = true
+            }
+            else {
+                cell.splitline.isHidden = false
+            }
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let hud = JGProgressHUD(style:  .dark)
+            hud.textLabel.text = "Deleting..."
+            hud.show(in: self.view)
+            
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("Yes") {
+                self.db.collection("documents").document((self.currentUser?.email)!).updateData(["\(self.documentsListSorted[indexPath.row].title!)":FieldValue.delete()]) { (error) in
+                    if let error = error {
+                        hud.dismiss()
+                        SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+                    }
+                    else {
+                        let dispatchGroup = DispatchGroup()
+                        for i in 0..<self.documentsListSorted[indexPath.row].numOfPages! {
+                            dispatchGroup.enter()
+                            let imageRef = Storage.storage().reference(forURL: "gs://usscanner.appspot.com/documents/\((self.currentUser?.email)!)/\(self.documentsListSorted[indexPath.row].title!)-\(i)")
+                            imageRef.delete { (error) in
+                                if let error = error {
+                                    SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+                                    return
+                                }
+                                else {
+                                    dispatchGroup.leave()
+                                }
+                            }
+                        }
+                        dispatchGroup.notify(queue: .main) {
+                            hud.dismiss()
+                            self.documentsListSorted.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                        }
+                    }
+                }
+            }
+            alertView.addButton("No") {
+            }
+            
+            alertView.showWarning("Delete \"\(documentsListSorted[indexPath.row].title!)\"", subTitle: "Are you sure?")
+        }
+    }
     // MARK: - fetchData
     func fetchData() {
-        documentsList.removeAll()
+        documentsData.removeAll()
+        documentsListSorted.removeAll()
         let hud = JGProgressHUD(style:  .dark)
         hud.show(in: self.view)
         
@@ -163,26 +266,28 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
             else {
                 let dispatchGroup = DispatchGroup()
                 for key in (snapshot?.data() as Dictionary).keys {
-                    self.documentsList.updateValue(DocumentData(), forKey: key)
-                    self.documentsList[key]?.title = "\(key)"
-                    self.documentsList[key]?.time = ((snapshot?.data()![key] as! Dictionary<String, Any>)["time"]! as! String)
-                    self.documentsList[key]?.numOfPages = ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int)
-                    for i in 0..<(self.documentsList[key]?.numOfPages!)! {
+                    self.documentsData.updateValue(DocumentData(), forKey: key)
+                    self.documentsData[key]?.title = "\(key)"
+                    self.documentsData[key]?.time = ((snapshot?.data()![key] as! Dictionary<String, Any>)["time"]! as! String)
+                    self.documentsData[key]?.numOfPages = ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int)
+                    for i in 0..<(self.documentsData[key]?.numOfPages!)! {
                         dispatchGroup.enter()
                         let imageRef = Storage.storage().reference(forURL: ((snapshot?.data()![key] as! Dictionary<String, Any>)["\(key)-\(i)"]! as! String))
                         imageRef.getData(maxSize: 1*4096*4096) { (data, error) in
                             if let error = error {
                                 hud.dismiss()
                                 SCLAlertView().showError("Error", subTitle: error.localizedDescription)
+                                return
                             }
                             else {
-                                self.documentsList[key]?.images.append(UIImage(data: data!))
+                                self.documentsData[key]?.images.append(UIImage(data: data!))
                                 dispatchGroup.leave()
                             }
                         }
                     }
                 }
                 dispatchGroup.notify(queue: .main) {
+                    self.documentsListSorted = Array(self.documentsData.values).sorted { ($0 as DocumentData).title!.lowercased() < ($1 as DocumentData).title!.lowercased() }
                     hud.dismiss()
                     self.presentData()
                 }

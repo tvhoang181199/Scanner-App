@@ -188,6 +188,21 @@
             </objects>
             <point key="canvasLocation" x="1540.5797101449277" y="353.57142857142856"/>
         </scene>
+        <!--Share Document View Controller-->
+        <scene sceneID="PDN-jZ-ReC">
+            <objects>
+                <viewController id="TqV-xe-7RO" customClass="ShareDocumentViewController" customModule="Scanner_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ais-IM-Zs4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Upm-qK-YJf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A9G-Lt-ORg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2704" y="354"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="2zu-J7-VSl">
             <objects>

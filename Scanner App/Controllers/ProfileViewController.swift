@@ -23,7 +23,7 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         
     }
     
@@ -108,6 +108,9 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
             dispatchGroup.notify(queue: .main) {
                 hud.dismiss()
                 SCLAlertView().showSuccess("Success", subTitle: "All your new documents have been saved!")
+                let tabbarViewControllers = self.tabBarController?.viewControllers
+                let vc = tabbarViewControllers![1] as! StoreDataViewController //20
+                vc.isNeedUpdate = true
             }
         }
         alertView.addButton("Cancel") {
