@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PDFKit
 import JGProgressHUD
 import SCLAlertView
 import Firebase
@@ -21,6 +22,7 @@ struct DocumentData {
 
 protocol ShareDocmentProtocol {
     func shareDocumentAsText(_ data: DocumentData)
+    func shareDocumentAsPDF(_ data: DocumentData)
 }
 
 class DocumentCell: UITableViewCell {
@@ -49,9 +51,9 @@ class DocumentCell: UITableViewCell {
         )
         let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("PDF") {
-            
+            self.delegate.shareDocumentAsPDF(self.documentData)
         }
-        alertView.addButton("TEXT") {
+        alertView.addButton("TEXT/JPG") {
             self.delegate.shareDocumentAsText(self.documentData)
         }
         alertView.addButton("Cancel") {
@@ -274,6 +276,36 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         vc.modalPresentationStyle = .fullScreen
         vc.documentData = data
         self.present(vc, animated: true)
+    }
+    
+    func shareDocumentAsPDF(_ data: DocumentData) {
+        let pdfDocument = PDFDocument()
+        for i in 0..<data.images.count {
+            let pdfPage = PDFPage(image: data.images[i]!)
+            pdfDocument.insert(pdfPage!, at: i)
+        }
+        
+        let pdfData = pdfDocument.dataRepresentation()
+        
+        let documentDirectory = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0])
+        let dirPath = documentDirectory.appendingPathComponent("USScanner")
+        do {
+            try FileManager.default.createDirectory(atPath: dirPath!.path, withIntermediateDirectories: true, attributes: nil)
+        }
+        catch let error as NSError {
+            print("Unable to create directory \(error.debugDescription)")
+        }
+        
+        let docURL = dirPath?.appendingPathComponent("\(data.title!).pdf")
+        do {
+            try pdfData?.write(to: docURL!)
+        }
+        catch let error as NSError {
+            print("Unable to write data \(error.debugDescription)")
+        }
+        
+        let ac = UIActivityViewController(activityItems: [URL(string: docURL!.absoluteString)!], applicationActivities: nil)
+        self.present(ac, animated: true)
     }
     
     // MARK: - UploadDocumentProtocol

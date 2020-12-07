@@ -7,6 +7,7 @@
 
 import UIKit
 import JGProgressHUD
+import SCLAlertView
 import TesseractOCR
 
 class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8TesseractDelegate {
@@ -20,6 +21,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
 
     let tesseract = G8Tesseract(language: "eng")
     let hud = JGProgressHUD(style: .dark)
+    var currentIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +67,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = pageIndex
+        currentIndex = pageIndex
         
         tesseract!.image = documentData.images[pageIndex]?.g8_blackAndWhite()
         hud.textLabel.text = "Processing..."
@@ -79,7 +82,23 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
-
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false,
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("TEXT") {
+            let ac = UIActivityViewController(activityItems: [self.textView.text!], applicationActivities: nil)
+            self.present(ac, animated: true)
+        }
+        alertView.addButton("JPG") {
+            let ac = UIActivityViewController(activityItems: [self.documentData.images[self.currentIndex]!], applicationActivities: nil)
+            self.present(ac, animated: true)
+        }
+        alertView.addButton("Cancel") {
+        }
+        
+        alertView.showWarning("Share as", subTitle: "")
     }
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
