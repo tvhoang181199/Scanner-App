@@ -345,6 +345,7 @@ PODS:
   - ObjectMapper (4.2.0)
   - PromisesObjC (1.2.10)
   - SCLAlertView (0.8)
+  - TesseractOCRiOS (4.0.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -356,6 +357,7 @@ DEPENDENCIES:
   - JGProgressHUD
   - ObjectMapper
   - SCLAlertView (~> 0.8)
+  - TesseractOCRiOS
 
 SPEC REPOS:
   trunk:
@@ -382,6 +384,7 @@ SPEC REPOS:
     - ObjectMapper
     - PromisesObjC
     - SCLAlertView
+    - TesseractOCRiOS
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -407,7 +410,8 @@ SPEC CHECKSUMS:
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
 
-PODFILE CHECKSUM: 32dee55a6cca784823c8bee9e260b43cb700bb49
+PODFILE CHECKSUM: 2fec15e557879f4c8dfcb97615a8846db65ffc18
 
 COCOAPODS: 1.10.0

@@ -15,11 +15,17 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 
+protocol UploadDocumentProtocol {
+    func didUploadNewDocument()
+}
+
 class ProfileViewController : UIViewController, NavigationControllerCustomDelegate, VNDocumentCameraViewControllerDelegate {
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
     let currentUser = Auth.auth().currentUser
+    
+    var listener: UploadDocumentProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +99,7 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
                         // Upload photo
                         let storageRef = self.storage.reference().child("documents/\((self.currentUser?.email)!)/\(documentName!)-\(pageIndex)")
                         
-                        let imageData = scan.imageOfPage(at: pageIndex).jpegData(compressionQuality: 0.8)
+                        let imageData = scan.imageOfPage(at: pageIndex).jpegData(compressionQuality: 1)
                         
                         let metaData = StorageMetadata()
                         metaData.contentType = "image/jpeg"
@@ -108,9 +114,7 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
             dispatchGroup.notify(queue: .main) {
                 hud.dismiss()
                 SCLAlertView().showSuccess("Success", subTitle: "All your new documents have been saved!")
-                let tabbarViewControllers = self.tabBarController?.viewControllers
-                let vc = tabbarViewControllers![1] as! StoreDataViewController //20
-                vc.isNeedUpdate = true
+                self.listener.didUploadNewDocument()
             }
         }
         alertView.addButton("Cancel") {

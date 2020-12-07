@@ -19,6 +19,10 @@ struct DocumentData {
     var images:[UIImage?] = []
 }
 
+protocol ShareDocmentProtocol {
+    func shareDocumentAsText(_ data: DocumentData)
+}
+
 class DocumentCell: UITableViewCell {
     
     @IBOutlet weak var documentImageView: UIImageView!
@@ -27,9 +31,11 @@ class DocumentCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var splitline: UIView!
     
-    var images: [UIImage?] = []
+    var documentData = DocumentData()
+    var delegate: ShareDocmentProtocol!
     
     func setDocument(_ document:DocumentData) {
+        documentData = document
         documentImageView.image = document.images[0]
         titleLabel.text = document.title!
         numOfPagesLabel.text = "Total Pages: \(document.numOfPages!)"
@@ -37,6 +43,21 @@ class DocumentCell: UITableViewCell {
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false,
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("PDF") {
+            
+        }
+        alertView.addButton("TEXT") {
+            self.delegate.shareDocumentAsText(self.documentData)
+        }
+        alertView.addButton("Cancel") {
+        }
+        
+        alertView.showWarning("Share as", subTitle: "")
     }
     
     func incrementHUD(_ hud: JGProgressHUD, progress previousProgress: Int) {
@@ -68,8 +89,8 @@ class DocumentCell: UITableViewCell {
         )
         let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("Yes") {
-            for i in 0..<self.images.count {
-                UIImageWriteToSavedPhotosAlbum(self.images[i]!, self, nil, nil)
+            for i in 0..<self.documentData.images.count {
+                UIImageWriteToSavedPhotosAlbum(self.documentData.images[i]!, self, nil, nil)
             }
             let hud = JGProgressHUD(style:  .dark)
             hud.vibrancyEnabled = true
@@ -94,13 +115,12 @@ class DocumentCell: UITableViewCell {
     }
 }
 
-class StoreDataViewController : UIViewController, NavigationControllerCustomDelegate, UITableViewDelegate, UITableViewDataSource {
+class StoreDataViewController : UIViewController, NavigationControllerCustomDelegate, UITableViewDelegate, UITableViewDataSource, UploadDocumentProtocol, ShareDocmentProtocol {
     
     @IBOutlet weak var documentsTableView: UITableView!
     
     var documentsData: [String:DocumentData] = [:]
     var documentsListSorted: [DocumentData] = []
-    var isNeedUpdate: Bool = false
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -114,11 +134,15 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         documentsTableView.delegate = self
         documentsTableView.dataSource = self
         
+        let tabbarViewControllers = self.tabBarController?.viewControllers
+        let vc = tabbarViewControllers![0] as! ProfileViewController
+        vc.listener = self
+        
         refreshControl.tintColor = UIColor.lightGray
         refreshControl.addTarget(self, action: #selector(refetchData), for: .valueChanged)
         documentsTableView.addSubview(refreshControl)
         
-        // fetchData for first time
+        // fetchData
         fetchData()
     }
     
@@ -128,18 +152,8 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         let navigationControllerCustom : NavigationControllerCustom = self.navigationController as! NavigationControllerCustom
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:true, hideFilterButton:true, title: "DATA")
         navigationControllerCustom.navigationBar.isHidden = true
-        
-        // Fetch data if there is a new document uploaded
-        if isNeedUpdate {
-            fetchData()
-        }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // When disapear, all data is fetched so set isNeedUpdate to false
-        isNeedUpdate = false
-    }
+
     
     @objc private func refetchData() {
         documentsData.removeAll()
@@ -151,10 +165,11 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
             else {
                 let dispatchGroup = DispatchGroup()
                 for key in (snapshot?.data() as Dictionary).keys {
-                    self.documentsData.updateValue(DocumentData(), forKey: key)
-                    self.documentsData[key]?.title = "\(key)"
-                    self.documentsData[key]?.time = ((snapshot?.data()![key] as! Dictionary<String, Any>)["time"]! as! String)
-                    self.documentsData[key]?.numOfPages = ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int)
+                    self.documentsData.updateValue(DocumentData(title: "\(key)",
+                                                                numOfPages: ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int),
+                                                                time: ((snapshot?.data()![key] as! Dictionary<String, Any>)["time"]! as! String),
+                                                                images: [UIImage?](repeating: UIImage(), count: ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int))),
+                                                   forKey: key)
                     for i in 0..<(self.documentsData[key]?.numOfPages!)! {
                         dispatchGroup.enter()
                         let imageRef = Storage.storage().reference(forURL: ((snapshot?.data()![key] as! Dictionary<String, Any>)["\(key)-\(i)"]! as! String))
@@ -163,7 +178,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
                                 SCLAlertView().showError("Error", subTitle: error.localizedDescription)
                             }
                             else {
-                                self.documentsData[key]?.images.append(UIImage(data: data!))
+                                self.documentsData[key]?.images[i] = UIImage(data: data!)
                                 dispatchGroup.leave()
                             }
                         }
@@ -194,8 +209,8 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "documentCell", for: indexPath) as! DocumentCell
         if (!documentsData.isEmpty && !documentsListSorted.isEmpty) {
+            cell.delegate = self
             cell.setDocument(documentsListSorted[indexPath.row])
-            cell.images = documentsListSorted[indexPath.row].images
             if (indexPath.row == documentsData.count-1) {
                 cell.splitline.isHidden = true
             }
@@ -208,15 +223,14 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let hud = JGProgressHUD(style:  .dark)
-            hud.textLabel.text = "Deleting..."
-            hud.show(in: self.view)
-            
             let appearance = SCLAlertView.SCLAppearance(
                 showCloseButton: false
             )
             let alertView = SCLAlertView(appearance: appearance)
             alertView.addButton("Yes") {
+                let hud = JGProgressHUD(style:  .dark)
+                hud.textLabel.text = "Deleting..."
+                hud.show(in: self.view)
                 self.db.collection("documents").document((self.currentUser?.email)!).updateData(["\(self.documentsListSorted[indexPath.row].title!)":FieldValue.delete()]) { (error) in
                     if let error = error {
                         hud.dismiss()
@@ -239,6 +253,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
                         }
                         dispatchGroup.notify(queue: .main) {
                             hud.dismiss()
+                            self.documentsData.removeValue(forKey: "\(self.documentsListSorted[indexPath.row].title!)")
                             self.documentsListSorted.remove(at: indexPath.row)
                             tableView.deleteRows(at: [indexPath], with: .fade)
                         }
@@ -251,6 +266,21 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
             alertView.showWarning("Delete \"\(documentsListSorted[indexPath.row].title!)\"", subTitle: "Are you sure?")
         }
     }
+    
+    // MARK: - ShareDocmentProtocol
+    func shareDocumentAsText(_ data: DocumentData) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = storyboard.instantiateViewController(withIdentifier: "shareDocumentViewController") as! ShareDocumentViewController
+        vc.modalPresentationStyle = .fullScreen
+        vc.documentData = data
+        self.present(vc, animated: true)
+    }
+    
+    // MARK: - UploadDocumentProtocol
+    func didUploadNewDocument() {
+        fetchData()
+    }
+    
     // MARK: - fetchData
     func fetchData() {
         documentsData.removeAll()
@@ -266,10 +296,11 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
             else {
                 let dispatchGroup = DispatchGroup()
                 for key in (snapshot?.data() as Dictionary).keys {
-                    self.documentsData.updateValue(DocumentData(), forKey: key)
-                    self.documentsData[key]?.title = "\(key)"
-                    self.documentsData[key]?.time = ((snapshot?.data()![key] as! Dictionary<String, Any>)["time"]! as! String)
-                    self.documentsData[key]?.numOfPages = ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int)
+                    self.documentsData.updateValue(DocumentData(title: "\(key)",
+                                                                numOfPages: ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int),
+                                                                time: ((snapshot?.data()![key] as! Dictionary<String, Any>)["time"]! as! String),
+                                                                images: [UIImage?](repeating: UIImage(), count: ((snapshot?.data()![key] as! Dictionary<String, Any>)["numOfPages"]! as! Int))),
+                                                   forKey: key)
                     for i in 0..<(self.documentsData[key]?.numOfPages!)! {
                         dispatchGroup.enter()
                         let imageRef = Storage.storage().reference(forURL: ((snapshot?.data()![key] as! Dictionary<String, Any>)["\(key)-\(i)"]! as! String))
@@ -280,7 +311,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
                                 return
                             }
                             else {
-                                self.documentsData[key]?.images.append(UIImage(data: data!))
+                                self.documentsData[key]?.images[i] = UIImage(data: data!)
                                 dispatchGroup.leave()
                             }
                         }
@@ -295,4 +326,33 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         }
     }
     
+}
+
+extension UIApplication
+{
+
+    class func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController?
+    {
+        if let nav = base as? UINavigationController
+        {
+            let top = topViewController(nav.visibleViewController)
+            return top
+        }
+
+        if let tab = base as? UITabBarController
+        {
+            if let selected = tab.selectedViewController
+            {
+                let top = topViewController(selected)
+                return top
+            }
+        }
+
+        if let presented = base?.presentedViewController
+        {
+            let top = topViewController(presented)
+            return top
+        }
+        return base
+    }
 }

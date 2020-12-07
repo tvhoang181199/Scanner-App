@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170A36FE257E6FAD00240119 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 170A36FD257E6FAD00240119 /* tessdata */; };
 		1781C947257C32230058AE55 /* ShareDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1781C946257C32230058AE55 /* ShareDocumentViewController.swift */; };
 		17B1C0C02567D3D200B3E6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */; };
 		17B1C0C22567D3D200B3E6A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		170A36FD257E6FAD00240119 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		1781C946257C32230058AE55 /* ShareDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDocumentViewController.swift; sourceTree = "<group>"; };
 		17B1C0BC2567D3D200B3E6A4 /* Scanner App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scanner App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		17B1C0BE2567D3D200B3E6A4 /* Scanner App */ = {
 			isa = PBXGroup;
 			children = (
+				170A36FD257E6FAD00240119 /* tessdata */,
 				F5FA961B2572B41700C9427E /* Models */,
 				F5FA961125726F3000C9427E /* Helpers */,
 				F5FA960625726C3800C9427E /* Controllers */,
@@ -375,6 +378,7 @@
 				17B1C0C92567D3DE00B3E6A4 /* Assets.xcassets in Resources */,
 				F5FA960225726BF200C9427E /* SplashViewController.xib in Resources */,
 				17B1C0C72567D3D200B3E6A4 /* Main.storyboard in Resources */,
+				170A36FE257E6FAD00240119 /* tessdata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +616,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -674,6 +679,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
