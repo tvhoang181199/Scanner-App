@@ -36,6 +36,9 @@ class ManageCacheObject: NSObject {
         }
     }
     
+    static func clearData() {
+        UserDefaults.standard.set(nil, forKey:KEY_ACCOUNT)
+    }
         
     static func saveCurrentAccount(_ account : Account){
         UserDefaults.standard.set(Mapper<Account>().toJSON(account), forKey:KEY_ACCOUNT)

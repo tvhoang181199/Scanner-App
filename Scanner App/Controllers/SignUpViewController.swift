@@ -32,7 +32,7 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:false, hideFilterButton:true, title: "")
         navigationControllerCustom.navigationBar.barTintColor = ColorUtils.toolbar()
         navigationControllerCustom.navigationBar.isHidden = false
-//        self.navigationItem.hidesBackButton = true
+        self.navigationItem.hidesBackButton = true
     }
     
     func backTap() {
@@ -40,11 +40,11 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height * (2/3)
-            }
-        }
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0 {
+//                self.view.frame.origin.y -= keyboardSize.height * (2/3)
+//            }
+//        }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -70,6 +70,7 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
         }
         
         let hud = JGProgressHUD()
+        hud.style = .dark
         hud.textLabel.text = "On the way..."
         hud.show(in: self.view)
         
@@ -99,6 +100,54 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
                 }
             }
         }
+    }
+}
+
+extension SignUpViewController : UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        switch textField.tag {
+        case 2:
+            UIView.animate(withDuration: 0.2,
+                       delay: 0.1,
+                       options: UIView.AnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        self.view.frame.origin.y = -40
+            }, completion: { (finished) -> Void in
+                
+            })
+        case 3:
+            UIView.animate(withDuration: 0.2,
+                       delay: 0.1,
+                       options: UIView.AnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        self.view.frame.origin.y = -140
+            }, completion: { (finished) -> Void in
+                
+            })
+        default:
+            UIView.animate(withDuration: 0.2,
+                       delay: 0.1,
+                       options: UIView.AnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        self.view.frame.origin.y = -175
+            }, completion: { (finished) -> Void in
+                
+            })
+        }
+        
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//        UIView.animate(withDuration: 0.2,
+//                   delay: 0,
+//                   options: UIView.AnimationOptions.curveEaseIn,
+//                   animations: { () -> Void in
+//                    self.view.frame.origin.y = 0
+//        }, completion: { (finished) -> Void in
+//
+//        })
+        return true
     }
 }
 

@@ -39,13 +39,21 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
         let navigationControllerCustom : NavigationControllerCustom = self.navigationController as! NavigationControllerCustom
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:true, hideFilterButton:true, title: "PROFILE")
         navigationControllerCustom.navigationBar.isHidden = true
-    
+        self.navigationItem.hidesBackButton = true
     }
     
     @IBAction func scanButtonTapped(_ sender: Any) {
         let scannerVC = VNDocumentCameraViewController()
         scannerVC.delegate = self
         self.present(scannerVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func logoutButtonTapped(_ sender: Any) {
+        let dialogConfirmViewController:DialogConfirmViewController?
+        dialogConfirmViewController = UIStoryboard.dialogConfirmViewController()
+        dialogConfirmViewController?.delegate = self
+        self.present(dialogConfirmViewController!, animated: true, completion: nil)
+        
     }
     
     func getCurrentTime() -> String{
@@ -126,4 +134,20 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
     }
     
     
+}
+
+extension ProfileViewController : DialogConfirmDelegate {
+    func accept() {
+        for item in self.navigationController!.viewControllers {
+            if item is ViewController {
+                ManageCacheObject.clearData()
+                navigationController?.popToViewController(item, animated: false)
+                return
+            }
+        }
+    }
+    
+    func deny() {
+        
+    }
 }

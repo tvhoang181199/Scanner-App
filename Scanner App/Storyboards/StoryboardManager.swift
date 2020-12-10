@@ -31,4 +31,8 @@ extension UIStoryboard {
     class func mainViewController() -> MainViewController? {
         return mainStoryboard().instantiateViewController(withIdentifier: "MainViewController") as? MainViewController
     }
+    
+    class func dialogConfirmViewController() -> DialogConfirmViewController? {
+        return mainStoryboard().instantiateViewController(withIdentifier: "DialogConfirmViewController") as? DialogConfirmViewController
+    }
 }

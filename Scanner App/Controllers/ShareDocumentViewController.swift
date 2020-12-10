@@ -29,7 +29,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         scrollView.delegate = self
         tesseract!.delegate = self
         
-        tesseract!.image = documentData.images[0]?.g8_blackAndWhite()
+        tesseract!.image = (documentData.images[0]?.g8_blackAndWhite())!
         
         hud.textLabel.text = "Processing..."
         hud.show(in: self.view)
@@ -69,7 +69,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         pageControl.currentPage = pageIndex
         currentIndex = pageIndex
         
-        tesseract!.image = documentData.images[pageIndex]?.g8_blackAndWhite()
+        tesseract!.image = (documentData.images[pageIndex]?.g8_blackAndWhite())!
         hud.textLabel.text = "Processing..."
         hud.show(in: self.view)
         DispatchQueue.global().async {

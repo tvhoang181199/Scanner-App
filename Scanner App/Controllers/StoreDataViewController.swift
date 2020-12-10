@@ -64,6 +64,7 @@ class DocumentCell: UITableViewCell {
     
     func incrementHUD(_ hud: JGProgressHUD, progress previousProgress: Int) {
             let progress = previousProgress + 1
+            hud.style = .dark
             hud.progress = Float(progress)/100.0
             hud.detailTextLabel.text = "\(progress)% Complete"
             
@@ -154,6 +155,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         let navigationControllerCustom : NavigationControllerCustom = self.navigationController as! NavigationControllerCustom
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:true, hideFilterButton:true, title: "DATA")
         navigationControllerCustom.navigationBar.isHidden = true
+        self.navigationItem.hidesBackButton = true
     }
 
     

@@ -17,6 +17,13 @@ class ViewController:  UIViewController, NavigationControllerCustomDelegate {
         super.viewDidLoad()
        
         
+        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
         if (ManageCacheObject.isLogin()) {
             let mainViewController:MainViewController?
             mainViewController = UIStoryboard.mainViewController()
@@ -28,12 +35,6 @@ class ViewController:  UIViewController, NavigationControllerCustomDelegate {
             loginViewController = UIStoryboard.loginViewController()
             self.navigationController!.pushViewController(loginViewController!, animated: false)
         }
-        
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
     }
  
 }

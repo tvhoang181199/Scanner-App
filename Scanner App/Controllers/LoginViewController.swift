@@ -33,23 +33,23 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
         let navigationControllerCustom : NavigationControllerCustom = self.navigationController as! NavigationControllerCustom
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:true, hideFilterButton:true, title: "")
         navigationControllerCustom.navigationBar.isHidden = true
-        self.navigationItem.hidesBackButton = false
+        self.navigationItem.hidesBackButton = true
         
         
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height * (2/3)
-            }
-        }
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0 {
+//                self.view.frame.origin.y -= keyboardSize.height * (2/3)
+//            }
+//        }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
+//        if self.view.frame.origin.y != 0 {
+//            self.view.frame.origin.y = 0
+//        }
     }
 
     @IBAction func btn_sigUp ( _ sender:Any) {
@@ -60,7 +60,10 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
     
     @IBAction func btn_signIn(_ sender: Any) {
         
+        
+        
         let hud = JGProgressHUD()
+        hud.style = .dark
         hud.textLabel.text = "Please wait..."
         hud.show(in: self.view)
         
@@ -89,6 +92,9 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
                         let document = querySnapshot!.documents.first
                         let account = Mapper<Account>().map(JSONObject: document!.data())!
                         ManageCacheObject.saveCurrentAccount(account)
+                        
+                        self.txt_email.text = ""
+                        self.txt_password.text = ""
                         
                         let mainViewController:MainViewController?
                         mainViewController = UIStoryboard.mainViewController()
