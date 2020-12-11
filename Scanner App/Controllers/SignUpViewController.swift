@@ -64,7 +64,7 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
         let cleanedPassword = txt_password.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if Utils.isPasswordValid(cleanedPassword) == false {
-            Toast.show(message: "Please ensure that password has at least 8 characters, contains a special character and a number!", controller: self)
+            Toast.show(message: "Please ensure that password has at least 8 characters, 1 alphabet, 1 number and 1 special character", controller: self)
             return
         }
         

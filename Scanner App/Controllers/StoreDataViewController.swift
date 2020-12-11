@@ -124,6 +124,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     
     var documentsData: [String:DocumentData] = [:]
     var documentsListSorted: [DocumentData] = []
+    var isInitVC: Bool = false
     
     let db = Firestore.firestore()
     let storage = Storage.storage()
@@ -144,6 +145,8 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         refreshControl.tintColor = UIColor.lightGray
         refreshControl.addTarget(self, action: #selector(refetchData), for: .valueChanged)
         documentsTableView.addSubview(refreshControl)
+        
+        isInitVC = true
         
         // fetchData
         fetchData()

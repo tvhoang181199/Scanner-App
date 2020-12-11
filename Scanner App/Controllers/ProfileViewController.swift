@@ -125,7 +125,11 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
             dispatchGroup.notify(queue: .main) {
                 hud.dismiss()
                 SCLAlertView().showSuccess("Success", subTitle: "All your new documents have been saved!")
-                self.listener.didUploadNewDocument()
+                let tabbarViewControllers = self.tabBarController?.viewControllers
+                let vc = tabbarViewControllers![1] as! StoreDataViewController
+                if (vc.isInitVC) {
+                    self.listener.didUploadNewDocument()
+                }
             }
         }
         alertView.addButton("Cancel") {
