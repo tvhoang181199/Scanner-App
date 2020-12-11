@@ -19,7 +19,7 @@ class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.tabBarController?.navigationItem.leftItemsSupplementBackButton = true
         
 

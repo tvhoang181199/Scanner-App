@@ -34,7 +34,7 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
         navigationControllerCustom.setUpNavigationBar(self, hideBackButton:true, hideFilterButton:true, title: "")
         navigationControllerCustom.navigationBar.isHidden = true
         self.navigationItem.hidesBackButton = true
-        
+        self.navigationController?.title = "Login"
         
     }
     
@@ -62,8 +62,7 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
         
         
         
-        let hud = JGProgressHUD()
-        hud.style = .dark
+        let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Please wait..."
         hud.show(in: self.view)
         
@@ -84,7 +83,7 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
                 
                 let db = Firestore.firestore()
                 
-                let docRef = db.collection("users").whereField("email", isEqualTo: email).getDocuments() { (querySnapshot, err) in
+                db.collection("users").whereField("email", isEqualTo: email).getDocuments() { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")
                     } else {
@@ -102,9 +101,6 @@ class LoginViewController : UIViewController, NavigationControllerCustomDelegate
                         hud.dismiss()
                     }
                 }
-                
-                
-
             }
         }
         

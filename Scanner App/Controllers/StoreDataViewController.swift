@@ -9,8 +9,8 @@ import UIKit
 import PDFKit
 import JGProgressHUD
 import SCLAlertView
-import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 import FirebaseStorage
 
 struct DocumentData {
@@ -64,7 +64,7 @@ class DocumentCell: UITableViewCell {
     
     func incrementHUD(_ hud: JGProgressHUD, progress previousProgress: Int) {
             let progress = previousProgress + 1
-            hud.style = .dark
+        let hud = JGProgressHUD(style: .dark)
             hud.progress = Float(progress)/100.0
             hud.detailTextLabel.text = "\(progress)% Complete"
             

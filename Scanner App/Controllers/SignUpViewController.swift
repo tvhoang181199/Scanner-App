@@ -29,10 +29,9 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
         super.viewWillAppear(animated)
         //custom navigation bar
         let navigationControllerCustom : NavigationControllerCustom = self.navigationController as! NavigationControllerCustom
-        navigationControllerCustom.setUpNavigationBar(self, hideBackButton:false, hideFilterButton:true, title: "")
+        navigationControllerCustom.setUpNavigationBar(self, hideBackButton:false, hideFilterButton:true, title: "Sign Up")
         navigationControllerCustom.navigationBar.barTintColor = ColorUtils.toolbar()
         navigationControllerCustom.navigationBar.isHidden = false
-        self.navigationItem.hidesBackButton = true
     }
     
     func backTap() {
@@ -69,8 +68,7 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
             return
         }
         
-        let hud = JGProgressHUD()
-        hud.style = .dark
+        let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "On the way..."
         hud.show(in: self.view)
         
@@ -95,7 +93,9 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
                     }
                     else {
                         hud.dismiss()
-                        self.navigationController?.popViewController(animated: true)
+                        let mainViewController:MainViewController?
+                        mainViewController = UIStoryboard.mainViewController()
+                        self.navigationController?.pushViewController(mainViewController!, animated: true)
                     }
                 }
             }

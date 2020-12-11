@@ -27,9 +27,12 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
     
     var listener: UploadDocumentProtocol!
     
+    @IBOutlet weak var helloLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        helloLabel.text = "Hello, \((currentUser?.email)!)!"
         
     }
     
@@ -107,7 +110,7 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
                         // Upload photo
                         let storageRef = self.storage.reference().child("documents/\((self.currentUser?.email)!)/\(documentName!)-\(pageIndex)")
                         
-                        let imageData = scan.imageOfPage(at: pageIndex).jpegData(compressionQuality: 1)
+                        let imageData = scan.imageOfPage(at: pageIndex).jpegData(compressionQuality: 0.8)
                         
                         let metaData = StorageMetadata()
                         metaData.contentType = "image/jpeg"

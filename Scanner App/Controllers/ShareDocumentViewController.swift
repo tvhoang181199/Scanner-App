@@ -29,17 +29,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         scrollView.delegate = self
         tesseract!.delegate = self
         
-        tesseract!.image = (documentData.images[0]?.g8_blackAndWhite())!
-        
-        hud.textLabel.text = "Processing..."
-        hud.show(in: self.view)
-        DispatchQueue.global().async {
-            self.tesseract!.recognize()
-            DispatchQueue.main.async {
-                self.hud.dismiss()
-                self.textView.text = self.tesseract!.recognizedText
-            }
-        }
+        textView.text = "Press \"Generate text\" button to get text from document!"
         setupUIComponents()
     }
     
@@ -68,17 +58,6 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         let pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = pageIndex
         currentIndex = pageIndex
-        
-        tesseract!.image = (documentData.images[pageIndex]?.g8_blackAndWhite())!
-        hud.textLabel.text = "Processing..."
-        hud.show(in: self.view)
-        DispatchQueue.global().async {
-            self.tesseract!.recognize()
-            DispatchQueue.main.async {
-                self.hud.dismiss()
-                self.textView.text = self.tesseract!.recognizedText
-            }
-        }
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
@@ -99,6 +78,20 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         }
         
         alertView.showWarning("Share as", subTitle: "")
+    }
+    
+    
+    @IBAction func generateTextButtonTapped(_ sender: Any) {
+        tesseract!.image = (documentData.images[currentIndex]?.g8_blackAndWhite())!
+        hud.textLabel.text = "Processing..."
+        hud.show(in: self.view)
+        DispatchQueue.global().async {
+            self.tesseract!.recognize()
+            DispatchQueue.main.async {
+                self.hud.dismiss()
+                self.textView.text = self.tesseract!.recognizedText
+            }
+        }
     }
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
