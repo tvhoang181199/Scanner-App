@@ -271,6 +271,17 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = storyboard.instantiateViewController(withIdentifier: "previewDocumentViewController") as! PreviewDocumentViewController
+        vc.modalPresentationStyle = .fullScreen
+        vc.documentData = documentsListSorted[indexPath.row]
+        self.present(vc, animated: true)
+        
+        let cells = tableView.visibleCells
+        cells[indexPath.row].isSelected = false
+    }
+    
     // MARK: - ShareDocmentProtocol
     func shareDocumentAsText(_ data: DocumentData) {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)

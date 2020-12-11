@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		170A36FE257E6FAD00240119 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 170A36FD257E6FAD00240119 /* tessdata */; };
 		1781C947257C32230058AE55 /* ShareDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1781C946257C32230058AE55 /* ShareDocumentViewController.swift */; };
+		17A9635C25838B17004C9076 /* PreviewDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A9635B25838B17004C9076 /* PreviewDocumentViewController.swift */; };
 		17B1C0C02567D3D200B3E6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */; };
 		17B1C0C22567D3D200B3E6A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */; };
 		17B1C0C72567D3D200B3E6A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17B1C0C52567D3D200B3E6A4 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 /* Begin PBXFileReference section */
 		170A36FD257E6FAD00240119 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		1781C946257C32230058AE55 /* ShareDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDocumentViewController.swift; sourceTree = "<group>"; };
+		17A9635B25838B17004C9076 /* PreviewDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDocumentViewController.swift; sourceTree = "<group>"; };
 		17B1C0BC2567D3D200B3E6A4 /* Scanner App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scanner App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B1C0BF2567D3D200B3E6A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17B1C0C12567D3D200B3E6A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				F539298C2576BFC80020CB9D /* StoreDataViewController.swift */,
 				1781C946257C32230058AE55 /* ShareDocumentViewController.swift */,
 				F5CA73F0258287DC00DE662E /* DialogConfirmViewController.swift */,
+				17A9635B25838B17004C9076 /* PreviewDocumentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5DD4AEA257407B300787637 /* ColorUtils.swift in Sources */,
+				17A9635C25838B17004C9076 /* PreviewDocumentViewController.swift in Sources */,
 				F539295C2576A17F0020CB9D /* Toast.swift in Sources */,
 				F5DD4AE52574077200787637 /* NavigationControllerCustom.swift in Sources */,
 				F5FA960825726E9C00C9427E /* RootViewController.swift in Sources */,
