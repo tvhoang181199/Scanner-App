@@ -57,14 +57,14 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
             txt_lastName.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             txt_email.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             txt_password.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            Toast.show(message: "Please fill out all field!", controller: self)
+            Toast.show(message: "Please fill out all fields!", controller: self)
             return
         }
         
         let cleanedPassword = txt_password.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if Utils.isPasswordValid(cleanedPassword) == false {
-            Toast.show(message: "Please ensure that password has at least 8 characters, 1 alphabet, 1 number and 1 special character", controller: self)
+            Toast.show(message: "Please make sure that password has at least 8 characters!", controller: self)
             return
         }
         

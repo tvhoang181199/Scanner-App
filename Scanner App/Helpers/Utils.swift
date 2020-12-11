@@ -11,7 +11,6 @@ import Foundation
 class Utils: NSObject {
     
     static func isPasswordValid(_ password : String) -> Bool {
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$")
-        return passwordTest.evaluate(with: password)
+        return (password.count<8) ? false : true
     }
 }
