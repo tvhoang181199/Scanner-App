@@ -13,6 +13,7 @@ import TesseractOCR
 class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8TesseractDelegate {
     
     var documentData = DocumentData()
+    var documentStringList: [String] = []
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -26,14 +27,18 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        documentStringList = [String](repeating: "", count: documentData.numOfPages!)
+        
         scrollView.delegate = self
         tesseract!.delegate = self
         
-        textView.text = "Press \"Generate text\" button to get text from document!"
+        
         setupUIComponents()
     }
     
     func setupUIComponents() {
+        textView.text = "Press \"Generate text\" button to get text from document!"
+        
         self.view.layoutIfNeeded()
         var frame = CGRect(x:0, y:0, width: 0, height: 0)
         frame.size = scrollView.bounds.size
@@ -58,6 +63,8 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         let pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = pageIndex
         currentIndex = pageIndex
+        
+        textView.text = (documentStringList[currentIndex] == "") ? "Press \"Generate text\" button to get text from document!" : documentStringList[currentIndex]
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
@@ -67,8 +74,13 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         )
         let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("TEXT") {
-            let ac = UIActivityViewController(activityItems: [self.textView.text!], applicationActivities: nil)
-            self.present(ac, animated: true)
+            if (self.documentStringList[self.currentIndex] == "") {
+                SCLAlertView().showWarning("Warning", subTitle: "Please generate text before sharing current page")
+            }
+            else {
+                let ac = UIActivityViewController(activityItems: [self.textView.text!], applicationActivities: nil)
+                self.present(ac, animated: true)
+            }
         }
         alertView.addButton("JPG") {
             let ac = UIActivityViewController(activityItems: [self.documentData.images[self.currentIndex]!], applicationActivities: nil)
@@ -82,14 +94,17 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
     
     
     @IBAction func generateTextButtonTapped(_ sender: Any) {
-        tesseract!.image = (documentData.images[currentIndex]?.g8_blackAndWhite())!
-        hud.textLabel.text = "Processing..."
-        hud.show(in: self.view)
-        DispatchQueue.global().async {
-            self.tesseract!.recognize()
-            DispatchQueue.main.async {
-                self.hud.dismiss()
-                self.textView.text = self.tesseract!.recognizedText
+        if (documentStringList[currentIndex] == "") {
+            tesseract!.image = (documentData.images[currentIndex]?.g8_blackAndWhite())!
+            hud.textLabel.text = "Processing..."
+            hud.show(in: self.view)
+            DispatchQueue.global().async {
+                self.tesseract!.recognize()
+                DispatchQueue.main.async {
+                    self.hud.dismiss()
+                    self.documentStringList[self.currentIndex] = self.tesseract!.recognizedText
+                    self.textView.text = self.documentStringList[self.currentIndex]
+                }
             }
         }
     }
