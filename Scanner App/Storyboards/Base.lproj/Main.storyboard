@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -395,7 +395,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ee-z5-Iax">
-                                <rect key="frame" x="20" y="348" width="374" height="200"/>
+                                <rect key="frame" x="20" y="398" width="374" height="200"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ydd-oi-oag">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="200"/>
@@ -465,16 +465,25 @@
                                 <color key="textColor" red="0.35994568469999999" green="0.57268935440000002" blue="0.27052348850000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="1hx-FT-cSp">
+                                <rect key="frame" x="97.5" y="129" width="219" height="219"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="1hx-FT-cSp" secondAttribute="height" multiplier="1:1" id="3JX-7K-DIe"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RXu-h2-Nvw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dpB-Uq-pKY" firstAttribute="leading" secondItem="RXu-h2-Nvw" secondAttribute="leading" id="4g8-fQ-RYz"/>
+                            <constraint firstItem="1hx-FT-cSp" firstAttribute="centerX" secondItem="RXu-h2-Nvw" secondAttribute="centerX" id="8Ec-Nl-a9l"/>
                             <constraint firstItem="RXu-h2-Nvw" firstAttribute="trailing" secondItem="dpB-Uq-pKY" secondAttribute="trailing" id="ArV-ny-qzF"/>
+                            <constraint firstItem="9Ee-z5-Iax" firstAttribute="top" secondItem="1hx-FT-cSp" secondAttribute="bottom" constant="50" id="K3l-9n-f2x"/>
                             <constraint firstItem="RXu-h2-Nvw" firstAttribute="trailing" secondItem="9Ee-z5-Iax" secondAttribute="trailing" constant="20" id="UGf-mp-6Sd"/>
-                            <constraint firstItem="9Ee-z5-Iax" firstAttribute="centerY" secondItem="Sey-vn-Yyy" secondAttribute="centerY" id="Ucr-g3-n3g"/>
+                            <constraint firstItem="9Ee-z5-Iax" firstAttribute="centerY" secondItem="Sey-vn-Yyy" secondAttribute="centerY" constant="50" id="Ucr-g3-n3g"/>
                             <constraint firstItem="dpB-Uq-pKY" firstAttribute="top" secondItem="RXu-h2-Nvw" secondAttribute="top" id="hAq-HT-gYf"/>
                             <constraint firstItem="9Ee-z5-Iax" firstAttribute="leading" secondItem="RXu-h2-Nvw" secondAttribute="leading" constant="20" id="oBt-qF-7dI"/>
+                            <constraint firstItem="1hx-FT-cSp" firstAttribute="top" secondItem="dpB-Uq-pKY" secondAttribute="bottom" constant="10" id="q17-df-Ai9"/>
                             <constraint firstItem="9Ee-z5-Iax" firstAttribute="centerX" secondItem="Sey-vn-Yyy" secondAttribute="centerX" id="rIx-CO-JKx"/>
                         </constraints>
                     </view>
@@ -1104,6 +1113,7 @@
     </scenes>
     <resources>
         <image name="arrow.down.app" catalog="system" width="128" height="114"/>
+        <image name="icon" width="500" height="500"/>
         <image name="icon_close" width="48" height="48"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
