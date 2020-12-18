@@ -63,27 +63,26 @@ class DocumentCell: UITableViewCell {
     }
     
     func incrementHUD(_ hud: JGProgressHUD, progress previousProgress: Int) {
-            let progress = previousProgress + 1
-        let hud = JGProgressHUD(style: .dark)
-            hud.progress = Float(progress)/100.0
-            hud.detailTextLabel.text = "\(progress)% Complete"
-            
-            if progress == 100 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                    UIView.animate(withDuration: 0.1, animations: {
-                        hud.textLabel.text = "Success"
-                        hud.detailTextLabel.text = nil
-                        hud.indicatorView = JGProgressHUDSuccessIndicatorView()
-                    })
-                    hud.dismiss(afterDelay: 1.0)
-                }
-            }
-            else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(20)) {
-                    self.incrementHUD(hud, progress: progress)
-                }
+        let progress = previousProgress + 1
+        hud.progress = Float(progress)/100.0
+        hud.detailTextLabel.text = "\(progress)% Complete"
+        
+        if progress == 100 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                UIView.animate(withDuration: 0.1, animations: {
+                    hud.textLabel.text = "Success"
+                    hud.detailTextLabel.text = nil
+                    hud.indicatorView = JGProgressHUDSuccessIndicatorView()
+                })
+                hud.dismiss(afterDelay: 1.0)
             }
         }
+        else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(20)) {
+                self.incrementHUD(hud, progress: progress)
+            }
+        }
+    }
     
     @IBAction func saveImageTapped(_ sender: Any) {
         let appearance = SCLAlertView.SCLAppearance(
@@ -107,7 +106,10 @@ class DocumentCell: UITableViewCell {
             hud.textLabel.text = "Saving..."
             hud.show(in: self.superview!.superview!.superview!)
             
+            print("Before process")
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+                print("Processing")
                 self.incrementHUD(hud, progress: 0)
             }
         }
@@ -160,7 +162,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         navigationControllerCustom.navigationBar.isHidden = true
         self.navigationItem.hidesBackButton = true
     }
-
+    
     
     @objc private func refetchData() {
         documentsData.removeAll()
@@ -203,14 +205,14 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     func presentData() {
         documentsTableView.reloadData()
     }
-
+    
     // MARK: - TableView Protocols
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (!documentsListSorted.isEmpty) ? documentsListSorted.count : 0
+        return (!documentsListSorted.isEmpty && !documentsListSorted.isEmpty) ? documentsListSorted.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -281,8 +283,8 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         vc.documentData = documentsListSorted[indexPath.row]
         self.present(vc, animated: true)
         
-        let cells = tableView.visibleCells
-        cells[indexPath.row].isSelected = false
+        let cell = tableView.cellForRow(at: indexPath)
+        cell!.isSelected = false
     }
     
     // MARK: - ShareDocmentProtocol
@@ -378,7 +380,7 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
 
 extension UIApplication
 {
-
+    
     class func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController?
     {
         if let nav = base as? UINavigationController
@@ -386,7 +388,7 @@ extension UIApplication
             let top = topViewController(nav.visibleViewController)
             return top
         }
-
+        
         if let tab = base as? UITabBarController
         {
             if let selected = tab.selectedViewController
@@ -395,7 +397,7 @@ extension UIApplication
                 return top
             }
         }
-
+        
         if let presented = base?.presentedViewController
         {
             let top = topViewController(presented)
