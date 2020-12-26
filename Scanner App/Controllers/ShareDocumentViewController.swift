@@ -102,7 +102,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
                 self.tesseract!.recognize()
                 DispatchQueue.main.async {
                     self.hud.dismiss()
-                    self.documentStringList[self.currentIndex] = self.tesseract!.recognizedText
+                    self.documentStringList[self.currentIndex] = self.tesseract!.recognizedText!
                     self.textView.text = self.documentStringList[self.currentIndex]
                 }
             }
