@@ -27,12 +27,12 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
     
     var listener: UploadDocumentProtocol!
     
-    @IBOutlet weak var helloLabel: UILabel!
+    @IBOutlet weak var lbl_hello: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        helloLabel.text = "Hello, \((currentUser?.email)!)!"
+        lbl_hello.text = "Hello, \((currentUser?.email)!)!"
         
     }
     
@@ -45,13 +45,13 @@ class ProfileViewController : UIViewController, NavigationControllerCustomDelega
         self.navigationItem.hidesBackButton = true
     }
     
-    @IBAction func scanButtonTapped(_ sender: Any) {
+    @IBAction func btn_scanDocuments(_ sender: Any) {
         let scannerVC = VNDocumentCameraViewController()
         scannerVC.delegate = self
         self.present(scannerVC, animated: true, completion: nil)
     }
     
-    @IBAction func logoutButtonTapped(_ sender: Any) {
+    @IBAction func btn_loggout(_ sender: Any) {
         let dialogConfirmViewController:DialogConfirmViewController?
         dialogConfirmViewController = UIStoryboard.dialogConfirmViewController()
         dialogConfirmViewController?.delegate = self

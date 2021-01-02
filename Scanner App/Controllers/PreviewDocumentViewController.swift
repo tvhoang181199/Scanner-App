@@ -11,7 +11,7 @@ class PreviewDocumentViewController: UIViewController, UIScrollViewDelegate {
     
     var documentData = DocumentData()
 
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var lbl_title: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -29,7 +29,7 @@ class PreviewDocumentViewController: UIViewController, UIScrollViewDelegate {
         var frame = CGRect(x:0, y:0, width: 0, height: 0)
         frame.size = scrollView.bounds.size
         
-        titleLabel.text = documentData.title
+        lbl_title.text = documentData.title
         pageControl.numberOfPages = documentData.images.count
         scrollView.isPagingEnabled = true
         scrollView.alwaysBounceVertical = false

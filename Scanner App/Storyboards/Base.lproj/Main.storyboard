@@ -308,8 +308,7 @@
                     <connections>
                         <outlet property="pageControl" destination="X2S-Nf-LMt" id="ibb-kh-cL1"/>
                         <outlet property="scrollView" destination="xUB-7z-Zkr" id="yzO-4R-IJh"/>
-                        <outlet property="textView" destination="uuf-uC-cuF" id="D2o-cI-VgT"/>
-                        <outlet property="titleLabel" destination="zwI-Ps-UDV" id="MLM-kR-gOP"/>
+                        <outlet property="txt_content" destination="uuf-uC-cuF" id="m7B-b5-q9P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A9G-Lt-ORg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -377,9 +376,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lbl_title" destination="hSc-lN-kYl" id="hhX-oJ-Ybf"/>
                         <outlet property="pageControl" destination="Dos-mk-Hfg" id="nCM-nr-S9p"/>
                         <outlet property="scrollView" destination="Tld-7w-a8m" id="9uK-Dv-E7x"/>
-                        <outlet property="titleLabel" destination="hSc-lN-kYl" id="qC6-TY-jNj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5kp-j8-fvK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -419,7 +418,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="scanButtonTapped:" destination="FFj-se-imI" eventType="touchUpInside" id="MN2-rh-k7c"/>
+                                                    <action selector="btn_scanDocuments:" destination="FFj-se-imI" eventType="touchUpInside" id="hr4-oZ-EaY"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAr-du-1Pp">
@@ -441,7 +440,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="logoutButtonTapped:" destination="FFj-se-imI" eventType="touchUpInside" id="A9x-ao-mhy"/>
+                                                    <action selector="btn_loggout:" destination="FFj-se-imI" eventType="touchUpInside" id="Vxx-hg-Akk"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -489,7 +488,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" selectedImage="person.fill" id="fkv-KO-5EM"/>
                     <connections>
-                        <outlet property="helloLabel" destination="dpB-Uq-pKY" id="9ef-ES-TKn"/>
+                        <outlet property="lbl_hello" destination="dpB-Uq-pKY" id="uCW-cH-hj4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIy-oy-Z2A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1117,7 +1116,7 @@
         <image name="icon_close" width="48" height="48"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="square.and.arrow.up" catalog="system" width="32" height="32"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="tray.fill" catalog="system" width="128" height="88"/>
         <image name="tray.full" catalog="system" width="128" height="88"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

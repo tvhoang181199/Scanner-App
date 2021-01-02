@@ -93,6 +93,13 @@ class SignUpViewController : UIViewController, NavigationControllerCustomDelegat
                     }
                     else {
                         hud.dismiss()
+                        
+                        let account = Account()
+                        account.email = self.txt_email.text!
+                        account.firstName = self.txt_firstName.text!
+                        account.lastName = self.txt_lastName.text!
+                        ManageCacheObject.saveCurrentAccount(account)
+                        
                         let mainViewController:MainViewController?
                         mainViewController = UIStoryboard.mainViewController()
                         self.navigationController?.pushViewController(mainViewController!, animated: true)

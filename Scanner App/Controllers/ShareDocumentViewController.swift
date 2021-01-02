@@ -15,10 +15,10 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
     var documentData = DocumentData()
     var documentStringList: [String] = []
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var lbl_title: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var txt_content: UITextView!
 
     let tesseract = G8Tesseract(language: "eng")
     let hud = JGProgressHUD(style: .dark)
@@ -43,7 +43,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         var frame = CGRect(x:0, y:0, width: 0, height: 0)
         frame.size = scrollView.bounds.size
         
-        titleLabel.text = documentData.title
+        lbl_title.text = documentData.title
         pageControl.numberOfPages = documentData.images.count
         scrollView.isPagingEnabled = true
         scrollView.alwaysBounceVertical = false
@@ -64,7 +64,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
         pageControl.currentPage = pageIndex
         currentIndex = pageIndex
         
-        textView.text = (documentStringList[currentIndex] == "") ? "Press \"Generate text\" button to get text from document!" : documentStringList[currentIndex]
+        txt_content.text = (documentStringList[currentIndex] == "") ? "Press \"Generate text\" button to get text from document!" : documentStringList[currentIndex]
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
@@ -78,7 +78,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
                 SCLAlertView().showWarning("Warning", subTitle: "Please generate text before sharing current page")
             }
             else {
-                let ac = UIActivityViewController(activityItems: [self.textView.text!], applicationActivities: nil)
+                let ac = UIActivityViewController(activityItems: [self.txt_content.text!], applicationActivities: nil)
                 self.present(ac, animated: true)
             }
         }
@@ -103,7 +103,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
                 DispatchQueue.main.async {
                     self.hud.dismiss()
                     self.documentStringList[self.currentIndex] = self.tesseract!.recognizedText!
-                    self.textView.text = self.documentStringList[self.currentIndex]
+                    self.txt_content.text = self.documentStringList[self.currentIndex]
                 }
             }
         }
