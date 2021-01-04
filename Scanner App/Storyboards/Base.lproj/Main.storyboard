@@ -306,6 +306,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lbl_title" destination="zwI-Ps-UDV" id="Qa5-3n-QQ2"/>
                         <outlet property="pageControl" destination="X2S-Nf-LMt" id="ibb-kh-cL1"/>
                         <outlet property="scrollView" destination="xUB-7z-Zkr" id="yzO-4R-IJh"/>
                         <outlet property="txt_content" destination="uuf-uC-cuF" id="m7B-b5-q9P"/>

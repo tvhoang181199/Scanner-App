@@ -37,7 +37,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
     }
     
     func setupUIComponents() {
-        textView.text = "Press \"Generate text\" button to get text from document!"
+        txt_content.text = "Press \"Generate text\" button to get text from document!"
         
         self.view.layoutIfNeeded()
         var frame = CGRect(x:0, y:0, width: 0, height: 0)
