@@ -157,6 +157,16 @@
                                             <outlet property="delegate" destination="doK-bo-IC9" id="kwA-Oe-0hH"/>
                                         </connections>
                                     </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No documents found!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AN9-cq-ZUD">
+                                        <rect key="frame" x="57" y="334.5" width="300" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="e9O-xI-38L"/>
+                                            <constraint firstAttribute="width" constant="300" id="hPu-vq-gjO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -173,7 +183,9 @@
                         <viewLayoutGuide key="safeArea" id="rI2-C2-hQv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="AN9-cq-ZUD" firstAttribute="centerX" secondItem="rI2-C2-hQv" secondAttribute="centerX" id="JOo-7j-pM1"/>
                             <constraint firstItem="SqD-Xn-QDz" firstAttribute="leading" secondItem="rI2-C2-hQv" secondAttribute="leading" id="Z5p-rt-9LP"/>
+                            <constraint firstItem="AN9-cq-ZUD" firstAttribute="centerY" secondItem="rI2-C2-hQv" secondAttribute="centerY" id="Zj0-nU-sxw"/>
                             <constraint firstItem="SqD-Xn-QDz" firstAttribute="top" secondItem="rI2-C2-hQv" secondAttribute="top" id="cPc-jz-klC"/>
                             <constraint firstItem="rI2-C2-hQv" firstAttribute="trailing" secondItem="SqD-Xn-QDz" secondAttribute="trailing" id="euT-zm-wRf"/>
                             <constraint firstItem="rI2-C2-hQv" firstAttribute="bottom" secondItem="SqD-Xn-QDz" secondAttribute="bottom" id="uvz-0h-ThE"/>
@@ -182,6 +194,7 @@
                     <tabBarItem key="tabBarItem" title="Store data" image="tray.full" catalog="system" selectedImage="tray.fill" id="2Vv-dq-ROP"/>
                     <connections>
                         <outlet property="documentsTableView" destination="Y0g-p4-O4O" id="Ud3-uL-qHG"/>
+                        <outlet property="lbl_nodocs" destination="AN9-cq-ZUD" id="vfe-Jp-nLE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gFW-43-Tds" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

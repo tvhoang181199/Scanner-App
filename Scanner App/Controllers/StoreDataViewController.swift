@@ -123,6 +123,7 @@ class DocumentCell: UITableViewCell {
 class StoreDataViewController : UIViewController, NavigationControllerCustomDelegate, UITableViewDelegate, UITableViewDataSource, UploadDocumentProtocol, ShareDocmentProtocol {
     
     @IBOutlet weak var documentsTableView: UITableView!
+    @IBOutlet weak var lbl_nodocs: UILabel!
     
     var documentsData: [String:DocumentData] = [:]
     var documentsListSorted: [DocumentData] = []
@@ -149,6 +150,10 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
         documentsTableView.addSubview(refreshControl)
         
         isInitVC = true
+        
+        // setup UI
+        lbl_nodocs.text = "No documents found!"
+        lbl_nodocs.isHidden = true
         
         // fetchData
         fetchData()
@@ -203,7 +208,15 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
     }
     
     func presentData() {
-        documentsTableView.reloadData()
+        if (documentsListSorted.isEmpty && documentsListSorted.isEmpty) {
+            lbl_nodocs.backgroundColor = UIColor.white
+            lbl_nodocs.isHidden = false
+        }
+        else {
+            lbl_nodocs.backgroundColor = UIColor.clear
+            lbl_nodocs.isHidden = true
+            documentsTableView.reloadData()
+        }
     }
     
     // MARK: - TableView Protocols
@@ -265,6 +278,14 @@ class StoreDataViewController : UIViewController, NavigationControllerCustomDele
                             self.documentsData.removeValue(forKey: "\(self.documentsListSorted[indexPath.row].title!)")
                             self.documentsListSorted.remove(at: indexPath.row)
                             tableView.deleteRows(at: [indexPath], with: .fade)
+                            if (self.documentsListSorted.isEmpty && self.documentsListSorted.isEmpty) {
+                                self.lbl_nodocs.backgroundColor = UIColor.white
+                                self.lbl_nodocs.isHidden = false
+                            }
+                            else {
+                                self.lbl_nodocs.backgroundColor = UIColor.clear
+                                self.lbl_nodocs.isHidden = true
+                            }
                         }
                     }
                 }
