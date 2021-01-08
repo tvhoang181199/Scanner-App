@@ -20,7 +20,7 @@ class ShareDocumentViewController: UIViewController, UIScrollViewDelegate, G8Tes
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var txt_content: UITextView!
 
-    let tesseract = G8Tesseract(language: "eng+vie")
+    let tesseract = G8Tesseract(language: "eng")
     let hud = JGProgressHUD(style: .dark)
     var currentIndex = 0
 
